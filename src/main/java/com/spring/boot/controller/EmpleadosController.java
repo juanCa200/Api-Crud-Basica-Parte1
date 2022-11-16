@@ -17,41 +17,39 @@ import com.spring.boot.service.EmpleadosServiceImpl;
 
 @RestController
 @RequestMapping("/empleados")
-public class EmpleadosController{
+public class EmpleadosController {
 
 	@Autowired
 	public EmpleadosServiceImpl servicio;
-	
+
 	@GetMapping
-	public List<Empleados> listar(){
+	public List<Empleados> listar() {
 		return servicio.listar();
 	}
-	
-    @GetMapping("/{id}")
-    public Empleados buscarPorId(@PathVariable("id")Integer id) {
-    	return servicio.buscarPorID(id);
-    }
-    
-    @PostMapping
-    public Empleados guardar(@RequestBody Empleados empleados) {
-    	return servicio.agregar(empleados);
-    }
-    
-    @PutMapping("/{id}")
-    public Empleados Actualizar(@RequestBody Empleados empleados,@PathVariable("id")Integer id) {
-    	Empleados empleado = servicio.buscarPorID(id);
-    	empleado.setNombre(empleados.getNombre());
-    	empleado.setApellido(empleados.getApellido());
-    	empleado.setCiudad(empleados.getCiudad());
-    	empleado.setEdad(empleados.getEdad());
-    	return servicio.agregar(empleado);
-    }
-    
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable("id")Integer id) {
-    	servicio.Eliminar(id);
-    }
-	
 
-	
+	@GetMapping("/{id}")
+	public Empleados buscarPorId(@PathVariable("id") Integer id) {
+		return servicio.buscarPorID(id);
+	}
+
+	@PostMapping
+	public Empleados guardar(@RequestBody Empleados empleados) {
+		return servicio.agregar(empleados);
+	}
+
+	@PutMapping("/{id}")
+	public Empleados Actualizar(@RequestBody Empleados empleados, @PathVariable("id") Integer id) {
+		Empleados empleado = servicio.buscarPorID(id);
+		empleado.setNombre(empleados.getNombre());
+		empleado.setApellido(empleados.getApellido());
+		empleado.setCiudad(empleados.getCiudad());
+		empleado.setEdad(empleados.getEdad());
+		return servicio.agregar(empleado);
+	}
+
+	@DeleteMapping("/{id}")
+	public void eliminar(@PathVariable("id") Integer id) {
+		servicio.Eliminar(id);
+	}
+
 }

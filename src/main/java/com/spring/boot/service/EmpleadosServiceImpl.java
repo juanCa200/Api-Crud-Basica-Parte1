@@ -9,12 +9,11 @@ import com.spring.boot.entity.Empleados;
 import com.spring.boot.repository.EmpleadosRepository;
 
 @Service
-public class EmpleadosServiceImpl implements EmpleadosService{
-
+public class EmpleadosServiceImpl implements EmpleadosService {
 
 	@Autowired
 	public EmpleadosRepository empleadosRepository;
-	
+
 	@Override
 	public List<Empleados> listar() {
 		return empleadosRepository.findAll();
@@ -37,9 +36,7 @@ public class EmpleadosServiceImpl implements EmpleadosService{
 
 	@Override
 	public void Eliminar(Integer id) {
-		empleadosRepository.deleteById(id);		
+		empleadosRepository.deleteById(id);
 	}
 
-	
-	
 }
