@@ -3,6 +3,8 @@ package com.spring.boot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,33 +25,34 @@ public class EmpleadosController {
 	public EmpleadosServiceImpl servicio;
 
 	@GetMapping
-	public List<Empleados> listar() {
-		return servicio.listar();
+	public ResponseEntity<List<Empleados>> listar() {
+		return new ResponseEntity<>(servicio.listar(),HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public Empleados buscarPorId(@PathVariable("id") Integer id) {
-		return servicio.buscarPorID(id);
+	public ResponseEntity<Empleados> buscarPorId(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(servicio.buscarPorID(id), HttpStatus.NOT_FOUND);
 	}
 
 	@PostMapping
-	public Empleados guardar(@RequestBody Empleados empleados) {
-		return servicio.agregar(empleados);
+	public ResponseEntity<Empleados> guardar(@RequestBody Empleados empleados) {
+		return new ResponseEntity<>(servicio.agregar(empleados),HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
-	public Empleados Actualizar(@RequestBody Empleados empleados, @PathVariable("id") Integer id) {
+	public ResponseEntity<Empleados> actualizar(@RequestBody Empleados empleados, @PathVariable("id") Integer id) {
 		Empleados empleado = servicio.buscarPorID(id);
 		empleado.setNombre(empleados.getNombre());
 		empleado.setApellido(empleados.getApellido());
 		empleado.setCiudad(empleados.getCiudad());
 		empleado.setEdad(empleados.getEdad());
-		return servicio.agregar(empleado);
+		return new ResponseEntity<>(servicio.agregar(empleado),HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/{id}")
-	public void eliminar(@PathVariable("id") Integer id) {
+	public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
 		servicio.Eliminar(id);
+		return new ResponseEntity<>("empleado eliminado",HttpStatus.OK);
 	}
 
 }
